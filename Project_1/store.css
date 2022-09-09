@@ -1,0 +1,5 @@
+.single-item:hover{
+    transition: all 0.75s;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+}
