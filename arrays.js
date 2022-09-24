@@ -5,7 +5,7 @@ const nums = [1, 3, 5, 7, 9];
 
 nums.forEach(num => console.log(num));
 
-//map(function): creates and returns new array with values tha ae returned by calling the argument function of each element.
+//map(function): creates and returns new array with values tha are returned by calling the argument function of each element.
 console.log(nums.map(num => num *= 2))
 
 //find(function): tests each element with the argument function, returns the value of the first element that satsfies the argument function
