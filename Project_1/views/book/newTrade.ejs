@@ -1,0 +1,46 @@
+<%- include('../partials/header.ejs')%>
+<link rel="stylesheet" href="/css/newTrade.css">
+    <section class="my-5">
+        <div class="container newTrade">
+            <div class="d-flex justify-content-center h-100">
+                <div class="user_card">
+                    <div>
+                        <h3 class="newTrade_text py-3">Add New Trade</h3>
+                    </div>
+                    <div class="d-flex justify-content-center form-container">
+                        <form action = '/books' method = 'POST'>
+                            <div class="input-group mb-3">
+                                <input type="text" id="category" name="category" class="form-control input_user"
+                                    placeholder="Category">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" id="title" name="title" class="form-control input_user"
+                                    placeholder="Title">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" id="author" name="author" class="form-control input_user"
+                                    placeholder="Author">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" id="status" name="status" class="form-control input_user"
+                                    placeholder="Status">
+                            </div>
+                            <div class="input-group mb-3">
+                                <textarea id="details" name="details" class="form-control input_user"
+                                    placeholder="Details"></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" id="image" name="image" class="form-control input_user"
+                                    placeholder="Image URL">
+                            </div>
+                            <div class="d-flex justify-content-center mt-3 newTrade_container">
+                                <button class="btn btn-primary newTrade_btn">Create Trade</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('../partials/footer.ejs')%>

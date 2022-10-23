@@ -1,0 +1,73 @@
+.max-height {
+    min-height: calc(100vh - 76px);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/background1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.banner {
+    color: white;
+    margin-top: -4rem;
+}
+
+.banner-title {
+    color: lightgreen;
+    font-size: 4rem;
+}
+
+.banner-link {
+    font-size: 1.5rem;
+    color: black;
+    border: 0.2rem solid black;
+}
+
+.btn-white {
+    color: white !important;
+    border-color: white !important;
+}
+
+.btn-white:hover {
+    color: white !important;
+    border-color: lightgreen !important;
+}
+
+.btn-black {
+    color: black !important;
+    border-color: black !important;
+}
+
+.btn-black:hover {
+    color: lightgreen !important;
+    background: black !important;
+}
+
+.navbar-toggler {
+    outline: none !important;
+}
+
+.nav-item {
+    padding-left: 75px;
+}
+
+.nav-link {
+    color: black;
+    transition: all 0.75s;  
+    font-size: 1.5rem;
+}
+
+.nav-link:hover {
+    color: lightsalmon;
+}
+
+footer{
+    background-color: lightblue;
+}
+
+.footer-icon-social{
+    margin-top: 25px;
+    margin-left: 135px;
+    color: black;
+    font-size: larger;
+}

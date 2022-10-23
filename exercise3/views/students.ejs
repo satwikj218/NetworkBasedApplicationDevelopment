@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <h2>Student Detail</h2>
+
+    <% if(students.length>0) {%>
+        <ul>
+            <% for(let i=0;i<students.length;i++) {%>
+                <li>
+                    <%= students[i].name%>
+                </li>
+            <% }%>
+        </ul>
+        <% } else {%>
+            <p>There is no student to display</p>
+            <% }%>
+</body>
+
+</html>

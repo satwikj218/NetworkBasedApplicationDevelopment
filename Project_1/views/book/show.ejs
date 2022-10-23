@@ -1,0 +1,38 @@
+<%- include('../partials/header.ejs')%>
+    <div class="content">
+        <div class="row store-items" id="store-items">
+            <div class="col-10 col-sm-6 col-lg-4 mx-auto my-3 store-item">
+                <div class="card single-item">
+                    <div class="img-container">
+                        <img src="<%= book.image%>" height="500" class="card-img-top store-img" alt="">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text text-capitalize">
+                            <h3>
+                                <%= book.title%>
+                            </h3>
+                            <p><b>Category: </b>
+                                <%= book.category%>
+                            </p>
+                            <p><b>Author: </b>
+                                <%= book.author%>
+                            </p>
+                            <p><b>Details: </b>
+                                <%= book.details%>
+                            </p>
+                            <p><b>Status: </b>
+                                <%= book.status%>
+                            </p>
+                        </div>
+                        <form class="m-3">
+                            <button type="submit" class="btn btn-primary mx-5 px-4" formmethod="GET"
+                                formaction="/books/<%= book.id%>/edit">Edit</button>
+                            <button type="submit" class="btn btn-danger mx-5 px-4" formmethod="POST"
+                                formaction="/books/<%= book.id%>?_method=DELETE">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs')%>

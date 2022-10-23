@@ -1,0 +1,49 @@
+<%- include('../partials/header.ejs')%>
+    <div class="content">
+        <%if(books.length){%>
+            <section id="book" class="book py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-10 mx-auto col-sm-6 text-center">
+                            <h2><strong class="banner-title">Select a Book</strong></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto d-flex justify-content-around sortBtn flex-wrap">
+                        <a href="/books" class="btn btn-black text-uppercase filter-btn m-2"
+                            data-filter="alt">all</a>
+                        <a href="/books/literatureFiction" class="btn btn-black text-uppercase filter-btn m-2"
+                            data-filter="alt">Literature & Fiction</a>
+                        <a href="/books/scifiFantasy" class="btn btn-black text-uppercase filter-btn m-2"
+                            data-filter="alt">Sci-Fi & Fantasy</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <%books.forEach(book=>{%>
+                        <div class="col-10 col-sm-6 col-lg-4 mx-auto my-3">
+                            <a style="text-decoration: none; color:black" href="/books/<%= book.id%>">
+                                <div class="card single-item">
+                                    <div class="img-container">
+                                        <img src="<%= book.image%>" height="500" class="card-img-top" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-text d-flex justify-content-between text-capitalize">
+
+                                            <h5>
+                                                <%= book.title%>
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <%}) %>
+                </div>
+            </section>
+            <%} else {%>
+                <h3>There are no books to display.</h3>
+                <%}%>
+    </div>
+    <%- include('../partials/footer.ejs')%>
