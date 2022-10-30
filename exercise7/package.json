@@ -1,0 +1,18 @@
+{
+  "name": "exercise7",
+  "version": "1.0.0",
+  "description": "Integrate MongoDB using Native Node Driver",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Satwik",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "method-override": "^3.0.0",
+    "mongodb": "^4.11.0",
+    "morgan": "^1.10.0"
+  }
+}
