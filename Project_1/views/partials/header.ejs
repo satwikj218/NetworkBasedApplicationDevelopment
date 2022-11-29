@@ -35,12 +35,22 @@
                     <li class="nav-item">
                         <a href="/books/new" class="nav-link">Add Trade</a>
                     </li>
+                    <%if(!user){%>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Login</a>
+                        <a href="/users/login" class="nav-link">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Sign up</a>
+                        <a href="/users/new" class="nav-link">Sign up</a>
                     </li>
+                    <%}
+                    else{%>
+                    <li class="nav-item">
+                        <a href="/users/profile" class="nav-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/users/logout" class="nav-link">Logout</a>
+                    </li>
+                    <%}%>
                     <li class="nav-item">
                         <a href="#contact" class="nav-link">Contact</a>
                     </li>
@@ -48,14 +58,16 @@
                         <a href="/#about" class="nav-link">About</a>
                     </li>
                 </ul>
-                <!-- <div class="d-none d-lg-flex">
-                    <div class="align-items-center d-flex justify-content-between mx-lg-5">
-                        <span class="mx-lg-3">
-                            <i class="fa fa-phone fa-lg"></i>
-                        </span>
-                        <p class="my-0"><strong> Phone No: +1 987 654 3210 </strong></p>
-                    </div>
-                </div> -->
             </div>
         </nav>
+        <%if(errorMessages.length > 0){
+            errorMessages.forEach(message => {%>
+                <div class="error"><%=message%></div>
+            <%});
+        }%>
+        <%if(successMessages.length > 0){
+            successMessages.forEach(message => {%>
+                <div class="success"><%=message%></div>
+            <%});
+        }%>
     </header>

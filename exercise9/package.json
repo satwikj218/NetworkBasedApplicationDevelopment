@@ -1,7 +1,7 @@
 {
-  "name": "module9",
+  "name": "exercise7",
   "version": "1.0.0",
-  "description": "User Integration Demo",
+  "description": "Integrate users",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,12 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "mongoose": "^5.12.2",
-    "morgan": "^1.10.0"
+    "method-override": "^3.0.0",
+    "mongoose": "^5.11.15",
+    "morgan": "^1.10.0",
+    "bcrypt": "^5.1.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "express-session": "^1.17.3"
   }
 }

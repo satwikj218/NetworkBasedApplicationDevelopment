@@ -29,8 +29,9 @@ exports.new = (req, res) => {
 //POST /books - create a new book
 exports.create = (req, res, next) => {
     let book = new model(req.body);
+    book.author = req.session.user;
     book.save()
-    .then(book => res.redirect("/books"))
+    .then(book => res.redirect('/books'))
     .catch(err => {
         if(err.name === 'ValidationError'){
             err.status = 400;
@@ -42,17 +43,11 @@ exports.create = (req, res, next) => {
 //GET /books/:id - send details of book identified by id
 exports.show = (req, res, next) => {
     let id = req.params.id;
-    //an objectId is 24-bit Hex string
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error("Invalid book Id");
-        err.status = 400;
-        return next(err);
-    }
-
-    model.findById(id)
+    model.findById(id).populate('author', 'firstName lastName')
     .then(book => {
         if(book){
-            res.render('./book/show', {book});
+            console.log(book)
+            return res.render('./book/show', {book});
         }
         else{
             let err = new Error("Cannot find a book with id " + id);
@@ -60,21 +55,16 @@ exports.show = (req, res, next) => {
             next(err);
         }
     })
-    .catch();    
+    .catch(err => next(err));    
 };
 
 //GET /books/:id/edit - send html form for editing an existing book
 exports.edit = (req, res, next) => {
     let id = req.params.id;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error("Invalid book Id");
-        err.status = 400;
-        return next(err);
-    }
     model.findById(id)
     .then(book => {
         if(book) {
-            res.render('./book/edit', {book});
+            return res.render('./book/edit', {book});
         } else {
             let err = new Error('Cannot find a book with id ' + id);
             err.status = 404;
@@ -88,12 +78,6 @@ exports.edit = (req, res, next) => {
 exports.update = (req, res, next) => {
     let book = req.body;
     let id = req.params.id;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error("Invalid story Id");
-        err.status = 400;
-        return next(err);
-    }
-
     model.findByIdAndUpdate(id, book, {useFindAndModify: false, runValidators: true})
     .then(book => {
         if(book){
@@ -106,9 +90,8 @@ exports.update = (req, res, next) => {
         }
     })
     .catch(err => {
-        if(err.name = "ValidationError"){
+        if(err.name = "ValidationError")
             err.status = 400;
-        }
         next(err);
     });
 };
@@ -116,21 +99,15 @@ exports.update = (req, res, next) => {
 //DELETE /books/:id - delete the book identified by id
 exports.delete = (req, res, next) => {
     let id = req.params.id;
-    if(!id.match(/^[0-9a-fA-F]{24}$/)){
-        let err = new Error("Invalid book Id");
-        err.status = 400;
-        return next(err);
-    }
-
-    model.findByIdAndDelete(id, {useFindAndModify: false, runValidators: true})
+    model.findByIdAndDelete(id, {useFindAndModify: false})
     .then(book => {
         if(book){
-            res.redirect('/books/');
+            res.redirect('/books');
         }
         else{
             let err = new Error('Cannot find a book with id ' + id);
             err.status = 404;
-            next(err);
+            return next(err);
         }
     })
     .catch(err => next(err));

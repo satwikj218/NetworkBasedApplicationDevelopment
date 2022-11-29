@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs')%>
+<section class="my-5">
+    <div class="container newTrade">
+        <div class="d-flex justify-content-center h-100">
+            <h2 style="color: lightcoral;">Welcome, <%= user.firstName + " " + user.lastName%> </h2>  
+        </div>
+        <div>
+            <%if(books.length) {%>
+                <p>You have created the following books:</p>
+                <%books.forEach(book => {%>
+                    <a href="/books/<%= book.id%>"><p><%=book.title%></p></a>
+                <%});
+            }
+            else{%>
+                <p>You have not created any books.</p>
+            <%}%>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer.ejs')%>

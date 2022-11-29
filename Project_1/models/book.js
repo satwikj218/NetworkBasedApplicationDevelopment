@@ -11,12 +11,13 @@ const bookSchema = new Schema({
         required: [true, "Category is required!"]
     },
     author: {
-        type: String,
-        required: [true, "Author is required!"]
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     details: {
         type: String,
-        required: [true, "Details is required!"]
+        required: [true, "Details is required!"],
+        minLength: [10, "The details should have at least 10 characters"]
     },
     status: {
         type: String,
