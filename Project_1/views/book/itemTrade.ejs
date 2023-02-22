@@ -1,0 +1,44 @@
+<%- include('../partials/header.ejs') %>
+
+  <section class="my-5">
+    <div class="container newTrade">
+      <h2>Choose the item you want to trade in</h2>
+      <%if(items.length){%>
+        <table style="border: 1px solid; margin: 5px;">
+          <tr>
+            <th style="border: 1px solid; padding: 5px;">Name</th>
+            <th style="border: 1px solid; padding: 5px;">Category</th>
+            <th style="border: 1px solid; padding: 5px;">Status</th>
+          </tr>
+          <%items.forEach(item=>{%>
+            <tr>
+              <td style="border: 1px solid; padding: 5px;">
+                <%= item.title%>
+              </td>
+              <td style="border: 1px solid; padding: 5px;">
+                <%= item.category%>
+              </td>
+              <td style="border: 1px solid; padding: 5px;">
+                <%= item.status%>
+              </td>
+              <%if(item.status==="Available"){%>
+                <td style="border: 1px solid; padding: 5px;">
+                  <form action="/books/<%= item.id%>/bookToTrade" method="get">
+                    <button type="submit" class="btn btn-primary">Trade This Item</button>
+                  </form>
+                </td>
+                <%}%>
+            </tr>
+            <br />
+            <%});%>
+        </table>
+        <br />
+
+        <%}else{%>
+
+          <p>You haven't created any items yet.</p>
+          <%};%>
+    </div>
+  </section>
+
+  <%- include('../partials/footer.ejs') %>

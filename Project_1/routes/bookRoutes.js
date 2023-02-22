@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/bookController');
 const {isLoggedIn, isAuthor} = require('../middlewares/auth');
-const {validateId} = require("../middlewares/validators");
+const {validateId, validateBook} = require("../middlewares/validator");
 const router = express.Router();
 
 //GET /books - send all books to the user
@@ -17,18 +17,28 @@ router.get('/scifiFantasy', controller.scifiFantasy);
 router.get('/new', isLoggedIn, controller.new);
 
 //POST /books - create a new book
-router.post('/', isLoggedIn, controller.create);
+router.post('/', isLoggedIn, validateBook, controller.create);
 
 //GET /books/:id - send details of book identified by id
 router.get('/:id', validateId, controller.show);
 
 //GET /books/:id/edit - send html form for editing an existing book
-router.get('/:id/edit', isLoggedIn, isAuthor, validateId, controller.edit);
+router.get('/:id/edit', validateId, isLoggedIn, isAuthor, controller.edit);
 
 //PUT /books/:id - update the book identified by id
-router.put('/:id', isLoggedIn, isAuthor, validateId, controller.update);
+router.put('/:id', validateId, isLoggedIn, isAuthor, validateBook, controller.update);
 
 //DELETE /books/:id - delete the book identified by id
-router.delete('/:id', isLoggedIn, isAuthor, validateId, controller.delete);
+router.delete('/:id', validateId, isLoggedIn, isAuthor, controller.delete);
 
-module.exports = router;
+router.post('/:id/watch', validateId, isLoggedIn, controller.watch);
+
+router.post('/:id/unwatch', validateId, isLoggedIn, controller.unWatch);
+
+router.get("/:id/trade", controller.trade);
+
+router.get("/:id/bookToTrade", controller.bookToTrade);
+
+router.delete("/:id/deleteOffer", controller.deleteOffer);
+
+module.exports = router; 

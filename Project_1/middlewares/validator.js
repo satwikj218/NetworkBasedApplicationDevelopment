@@ -1,15 +1,16 @@
 const {body} = require('express-validator');
-const { validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 
-exports.validateId = (req, res, next)=>{
+exports.validateId = (req, res, next) => {
     let id = req.params.id;
-    //an objectId is a 24-bit Hex string
-    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error('Invalid story id');
+    if(id.match(/^[0-9a-fA-F]{24}$/)){
+        return next();
+    }
+    else{
+        console.log("ID: ",id);
+        let err = new Error("Invalid Book Id");
         err.status = 400;
         return next(err);
-    } else {
-        return next();
     }
 };
 
@@ -34,5 +35,5 @@ exports.validateResult = (req, res, next) => {
     }
 };
 
-exports.validateStory = [body('title', 'Title cannot be empty').notEmpty().trim().escape(),
+exports.validateBook = [body('title', 'Title cannot be empty').notEmpty().trim().escape(),
 body('content', 'Content must be atleast 10 characters').isLength({min: 10}).trim().escape()];

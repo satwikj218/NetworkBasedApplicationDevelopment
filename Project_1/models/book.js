@@ -21,11 +21,21 @@ const bookSchema = new Schema({
     },
     status: {
         type: String,
+        enum: ['Available', 'Offer Pending', 'Traded'],
         required: [true, "Status is required!"]
     },
     image: {
         type: String,
         required: [true, "Image Url is required!"]
+    },
+    watch:{
+        type: Boolean
+    },
+    offerType:{
+        type: String
+    },
+    offered: {
+        type: Boolean
     }
 },
 {timestamps: true}

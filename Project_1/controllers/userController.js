@@ -1,19 +1,25 @@
 const User = require('../models/user');
 const Book = require('../models/book');
+const offerModel = require('../models/tradeOffer');
+const {validateResult} = require("../middlewares/validator");
 
 exports.index = (req, res, next) => {
     res.render('./user/index');
 };
 
 exports.new = (req, res) => {
-    res.render('./user/new');
+    return res.render('./user/new');
 };
 
 exports.create = (req, res, next) => {
     let user = new User(req.body);
-
+    if(user.email)
+        user.email = user.email.toLowerCase();
     user.save()
-    .then(user => res.redirect('/users/login'))
+    .then(user => {
+        req.flash('success', "Registration Succeeded!");
+        res.redirect('/users/login')
+    })
     .catch(err => {
         if(err.name === 'ValidationError'){
             req.flash('error', err.message);
@@ -36,13 +42,14 @@ exports.getUserLogin = (req, res, next) => {
 exports.login = (req, res, next) => {
     //authenticate user's body request
     let email = req.body.email;
+    if(email)
+        email = email.toLowerCase();
     let password = req.body.password;
 
     //get the user that matches the email
     User.findOne({email: email})
     .then(user => {
         if(!user){
-            console.log("Wrong Email Address");
             req.flash('error', "Wrong email address");
             res.redirect('/users/login');
         }
@@ -66,10 +73,10 @@ exports.login = (req, res, next) => {
 
 exports.profile = (req, res, next) => {
     let id = req.session.user;
-    Promise.all([User.findById(id), Book.find({author: id})])
+    Promise.all([User.findById(id), Book.find({author: id}), Book.find(), offerModel.find({offeredBy: id}), Book.find({offered: true})])
     .then(results => {
-        const [user, books] = results;
-        res.render('./user/profile', {user, books});
+        const [user, books, watchBooks, offers, offered] = results;
+        res.render('./user/profile', {user, books, watchBooks, offers, offered});
     })
     .catch(err => next(err));
 };

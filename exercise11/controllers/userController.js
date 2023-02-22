@@ -1,13 +1,16 @@
 const model = require('../models/user');
 const Story = require('../models/story');
+const {validateResult} = require('../middlewares/validator');
 
 exports.new = (req, res)=>{
         return res.render('./user/new');
 };
 
 exports.create = (req, res, next)=>{
-  
+    
     let user = new model(req.body);
+    if(user.email)
+        user.email = user.email.toLowerCase();
     user.save()
     .then(user=> {
         req.flash('success', 'Registration succeeded!');
@@ -35,6 +38,8 @@ exports.getUserLogin = (req, res, next) => {
 exports.login = (req, res, next)=>{
 
     let email = req.body.email;
+    if(email)
+        email = email.toLowerCase();
     let password = req.body.password;
     model.findOne({ email: email })
     .then(user => {

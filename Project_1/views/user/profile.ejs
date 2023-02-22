@@ -1,21 +1,98 @@
 <%- include('../partials/header.ejs')%>
-<section class="my-5">
-    <div class="container newTrade">
-        <div class="d-flex justify-content-center h-100">
-            <h2 style="color: lightcoral;">Welcome, <%= user.firstName + " " + user.lastName%> </h2>  
+    <section class="my-5">
+        <div class="container newTrade">
+            <div class="d-flex justify-content-center h-100">
+                <h2 style="color: lightcoral;">Welcome, <%= user.firstName + " " + user.lastName%>
+                </h2>
+            </div>
+            <div>
+                <%if(books.length) {%>
+                    <p>You have created the following books:</p>
+                    <%books.forEach(book=> {%>
+                        <a href="/books/<%= book.id%>" style="text-decoration: none; color: lightcoral;">
+                            <p>
+                                <%=book.title%>
+                            </p>
+                        </a>
+                        <%}); } else{%>
+                            <p>You have not created any books.</p>
+                            <%}%>
+            </div>
+            <div>
+                <h2>Your watched books</h2>
+                <% if (watchBooks.length) {%>
+                    <table style="border: 1px solid; margin: 5px;">
+                        <tr>
+                            <th style="border: 1px solid; padding: 5px;">Book</th>
+                            <th style="border: 1px solid; padding: 5px;">Category</th>
+                            <th style="border: 1px solid; padding: 5px;">Status</th>
+                            <th style="border: 1px solid; padding: 5px;">Actions</th>
+                        </tr>
+
+                        <%watchBooks.forEach(book=> {%>
+                            <%if(book.watch===true && book.author._id !=user){%>
+                                <tbody style="border: 1px solid; padding: 5px;">
+                                    <tr>
+                                        <td style="border: 1px solid; padding: 5px;">
+                                            <%=book.title%>
+                                        </td>
+                                        <td style="border: 1px solid; padding: 5px;">
+                                            <%=book.category%>
+                                        </td>
+                                        <td style="border: 1px solid; padding: 5px;">
+                                            <%=book.status%>
+                                        </td>
+                                        <td style="border: 1px solid; padding: 5px;">
+                                            <form>
+                                                <button type="submit" formmethod="POST"
+                                                    formaction="/books/<%= book.id%>/unwatch"
+                                                    class="btn btn-danger">Unwatch</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <%} })%>
+                    </table>
+                    <%}%>
+            </div>
+
+            <div>
+                <h2>Your Offers</h2>
+                <%if(offers.length){ 
+                    let names=new Array(); 
+                    offers.forEach(offer=>{
+                        names.push(offer.name);
+                    });%>
+
+                    <table style="border: 1px solid; margin: 5px;">
+                        <tr>
+                            <th style="border: 1px solid; padding: 5px;">Name</th>
+                            <th style="border: 1px solid; padding: 5px;">Category</th>
+                            <th style="border: 1px solid; padding: 5px;">Status</th>
+                            <th style="border: 1px solid; padding: 5px;">Actions</th>
+                        </tr>
+                        <%offered.forEach(item=>{
+                            if(names.includes(item.title)){%>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 1px solid; padding: 5px;"><%= item.title%></td>
+                                        <td style="border: 1px solid; padding: 5px;"><%= item.category%></td>
+                                        <td style="border: 1px solid; padding: 5px;"><%= item.status%></td>
+                                        <td style="border: 1px solid; padding: 5px;">
+                                            <form action="/books/<%= item.id%>/deleteOffer?_method=delete" method="post">
+                                                <button type="submit" class="m-1 btn btn-danger">Cancel Offer</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            <%}%>
+                        <%})%>
+                    </table>
+                    <%}else{%>
+                        <p>No offers made!!</p>
+                    <%};%>
+            </div>
         </div>
-        <div>
-            <%if(books.length) {%>
-                <p>You have created the following books:</p>
-                <%books.forEach(book => {%>
-                    <a href="/books/<%= book.id%>"><p><%=book.title%></p></a>
-                <%});
-            }
-            else{%>
-                <p>You have not created any books.</p>
-            <%}%>
-        </div>
-    </div>
-</section>
+    </section>
 
 <%- include('../partials/footer.ejs')%>

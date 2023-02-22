@@ -22,6 +22,10 @@
                             <input type="text" id="author" name="author" value = "<%= book.author%>" class = "fixed-width mx-4 form-control input_user"  required>
                         </div>
                         <div class="input-group mb-3">
+                            <label for="status"><b>Status</b></label>
+                            <input type="text" id="status" name="status" value = "<%= book.status%>" class = "fixed-width mx-4 form-control input_user"  required>
+                        </div>
+                        <div class="input-group mb-3">
                             <label for="title"><b>Details</b></label>
                             <textarea rows="3" id="details" name="details" class = "fixed-width mx-4 form-control input_user"  required minlength="10"><%= book.details%></textarea>
                         </div>

@@ -30,6 +30,33 @@
                             <button type="submit" class="btn btn-danger mx-5 px-4" formmethod="POST"
                                 formaction="/books/<%= book.id%>?_method=DELETE">Delete</button>
                         </form>
+                        <%if(book.author._id != user){%>
+                        <form class="m-3">
+                            <%if(book.status === "Available"){%>
+                                <button type="submit" class="btn btn-warning mx-5 px-4" formmethod="GET"
+                                    formaction="/books/<%= book.id%>/trade">Trade</button>
+                            <%}
+                            if(book.watch === false){%>
+                                <button type="submit" class="btn btn-secondary mx-5 px-4" formmethod="POST"
+                                    formaction="/books/<%= book.id%>/watch">Watch</button>
+                            <%}
+                            if(book.watch === true){%>
+                                <button type="submit" class="btn btn-secondary mx-5 px-4" formmethod="POST"
+                                    formaction="/books/<%= book.id%>/unwatch">Unwatch</button>
+                            <%}%>  
+                        <!-- </form>
+                        <%}else if(book.watch === false && book.author._id != user){%>
+                            <form class="m-3">
+                                <%if(book.status === "Available"){%>
+                                    <button type="submit" class="btn btn-warning mx-5 px-4" formmethod="GET"
+                                        formaction="/books/<%= book.id%>/trade">Trade</button>
+                                <%}
+                                if(book.watch === true){%>
+                                    <button type="submit" class="btn btn-secondary mx-5 px-4" formmethod="POST"
+                                        formaction="/books/<%= book.id%>/unwatch">Unwatch</button>
+                                <%}%> -->
+                        </form>
+                        <%}%>
                     </div>
                 </div>
             </div>

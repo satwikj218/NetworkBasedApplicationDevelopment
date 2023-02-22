@@ -35,6 +35,11 @@ exports.isAuthor = (req, res, next) => {
                 return next(err);
             }
         }
+        else{
+            let err = new Error('Cannot find a connection with id ' + req.params.id);
+            err.status = 404;
+            return next(err);
+        }
     })
     .catch(err => next(err));
 };
